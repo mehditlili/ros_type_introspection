@@ -127,7 +127,6 @@ template <typename T> inline T ReadFromBuffer( uint8_t** buffer, bool move_buffe
   T destination =  (*( reinterpret_cast<T*>( *buffer ) ) );
   if (move_buffer)
   {
-      std::cout << "adding to buffer " << sizeof(T) << std::endl;
     *buffer +=  sizeof(T);
   }
   else

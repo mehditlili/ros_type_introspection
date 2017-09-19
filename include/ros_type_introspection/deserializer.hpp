@@ -132,7 +132,7 @@ void buildRosFlatType(const ROSTypeList& type_map,
                       uint8_t *buffer_ptr,
                       ROSTypeFlat* flat_container_output,
                       const uint32_t max_array_size,
-		      bool move_buffer=true
+		      bool generating=false
  		    );
 
 

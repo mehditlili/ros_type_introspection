@@ -39,7 +39,8 @@ void gen_message_skeleton(const ROSTypeList& type_map,
 		   prefix,
 		   buffer,
 		   flat_container_output,
-		   100
+		   100,
+		   true
 		  );
   
   // Transform result into a map for dict style access

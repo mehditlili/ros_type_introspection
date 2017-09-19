@@ -215,7 +215,6 @@ ROSType::ROSType(const std::string &name):
       size_t string_size = (size_t) ReadFromBuffer<int32_t>(buffer, move_buffer);
       SString id( (const char*)(*buffer), string_size );
       if(move_buffer)
-	std::cout << "manually adding to buffer " << string_size << std::endl;
 	(*buffer) += string_size;
       return id;
     };

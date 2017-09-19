@@ -45,7 +45,8 @@ void buildRosFlatTypeImpl(const ROSTypeList& type_list,
                           uint8_t** buffer_ptr,
                           ROSTypeFlat* flat_container,
                           const uint32_t max_array_size,
-                          bool do_store)
+                          bool do_store,
+			  bool generating=false)
 {
   int array_size = type.arraySize();
   if( array_size == -1)
@@ -53,20 +54,20 @@ void buildRosFlatTypeImpl(const ROSTypeList& type_list,
     std::string branch;
     tree_node.toStr(branch);
     bool move_buffer = branch.find("0", 0) == std::string::npos;
-    array_size = ReadFromBuffer<int32_t>( buffer_ptr , move_buffer);
+    array_size = ReadFromBuffer<int32_t>( buffer_ptr , move_buffer && !generating);
   }
 
   std::function<void(StringTreeLeaf, bool)> deserializeAndStore;
 
   if( type.isBuiltin())
   {
-    deserializeAndStore = [&flat_container, &buffer_ptr, type](StringTreeLeaf tree_node, bool store)
+    deserializeAndStore = [&flat_container, &buffer_ptr, type, generating](StringTreeLeaf tree_node, bool store)
     {
       std::string branch;
       tree_node.toStr(branch);
       bool move_buffer = branch.find("0", 0) == std::string::npos;
-      auto p = std::make_pair( std::move(tree_node), type.deserializeFromBuffer(buffer_ptr, move_buffer) );
-      if( store ) flat_container->value.push_back( p );
+      auto p = std::make_pair( std::move(tree_node), type.deserializeFromBuffer(buffer_ptr, move_buffer && !generating));
+      if( store ) flat_container->value.push_back(p);
     };
   }
   else if( type.typeID() == OTHER)
@@ -94,7 +95,7 @@ void buildRosFlatTypeImpl(const ROSTypeList& type_list,
       throw std::runtime_error( output );
     }
 
-    deserializeAndStore = [&flat_container, &buffer_ptr, mg_definition, &type_list, type, max_array_size]
+    deserializeAndStore = [&flat_container, &buffer_ptr, mg_definition, &type_list, type, max_array_size, generating]
         (StringTreeLeaf tree_node, bool STORE_RESULT)
     {
       if( STORE_RESULT == false)
@@ -107,7 +108,8 @@ void buildRosFlatTypeImpl(const ROSTypeList& type_list,
                                buffer_ptr,
                                flat_container,
                                max_array_size,
-                               false
+                               false,
+                               generating
 			      );
         }
       }
@@ -140,7 +142,8 @@ void buildRosFlatTypeImpl(const ROSTypeList& type_list,
                                  buffer_ptr,
                                  flat_container,
                                  max_array_size,
-                                 true
+                                 true,
+                                 generating
 				);
 
           } //end of field.isConstant()
@@ -211,7 +214,7 @@ void buildRosFlatType(const ROSTypeList& type_map,
                       uint8_t *buffer_ptr,
                       ROSTypeFlat* flat_container_output,
                       const uint32_t max_array_size,
-		      bool move_buffer
+		      bool generating
  		    )
 {
   uint8_t** buffer = &buffer_ptr;
@@ -230,7 +233,8 @@ void buildRosFlatType(const ROSTypeList& type_map,
                         buffer,
                         flat_container_output,
                         max_array_size,
-                        true
+                        true,
+                        generating
 		      );
 }
 
