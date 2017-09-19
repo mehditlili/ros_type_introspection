@@ -47,8 +47,6 @@ void buildRosFlatTypeImpl(const ROSTypeList& type_list,
                           const uint32_t max_array_size,
                           bool do_store)
 {
-  printf("Address of buffer is %i\n", (void *)*buffer_ptr);  
-
   int array_size = type.arraySize();
   if( array_size == -1)
   {
@@ -234,8 +232,6 @@ void buildRosFlatType(const ROSTypeList& type_map,
                         max_array_size,
                         true
 		      );
-  printf("Address of buffer at the end is %i\n", (void *)*buffer);  
-
 }
 
 StringTreeLeaf::StringTreeLeaf(): node_ptr(nullptr), array_size(0)
