@@ -71,8 +71,7 @@ void buildRosBuffer(std::map<SString, boost::any> value_map,
 		    std::map<SString, BuiltinType> type_map,
 		    std::map<int, SString> order_map,
 		    std::vector<SString> attribute_names,
-		    std::vector<uint8_t> &buffer,
-		    std::vector<uint8_t> &true_buffer);
+		    std::vector<uint8_t> &buffer);
 
 
 void gen_message_skeleton(const ROSTypeList& type_map,
