@@ -2,6 +2,8 @@
 #define ROS_INTROSPECTION_HPP
 
 #include <ros_type_introspection/renamer.hpp>
+#include <ros_type_introspection/serializer.hpp>
+
 //#include <ros_type_introspection/deserializer.hpp>
 //#include <ros_type_introspection/parser.hpp>
 

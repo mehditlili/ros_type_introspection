@@ -124,21 +124,21 @@ inline boost::any Variant::auto_convert() const
   {
     
   case CHAR:
-  case INT8:   int64_t tmp1; convert_impl<int8_t,  int64_t>(*reinterpret_cast<const int8_t*>( &_raw_data [0]), tmp1 ); target = tmp1; break;
+  case INT8:   int8_t tmp1; convert_impl<int8_t,  int8_t>(*reinterpret_cast<const int8_t*>( &_raw_data [0]), tmp1 ); target = tmp1; break;
 
-  case INT16:  int64_t tmp2; convert_impl<int16_t, int64_t>(*reinterpret_cast<const int16_t*>( &_raw_data [0]), tmp2  ); target = tmp2;break;
-  case INT32:  int64_t tmp3; convert_impl<int32_t, int64_t>(*reinterpret_cast<const int32_t*>( &_raw_data [0]), tmp3  ); target = tmp3;break;
+  case INT16:  int16_t tmp2; convert_impl<int16_t, int16_t>(*reinterpret_cast<const int16_t*>( &_raw_data [0]), tmp2  ); target = tmp2;break;
+  case INT32:  int32_t tmp3; convert_impl<int32_t, int32_t>(*reinterpret_cast<const int32_t*>( &_raw_data [0]), tmp3  ); target = tmp3;break;
   case INT64:  int64_t tmp4; convert_impl<int64_t, int64_t>(*reinterpret_cast<const int64_t*>( &_raw_data [0]), tmp4  ); target = tmp4;break;
 
   case BOOL:
   case BYTE:
-  case UINT8:   uint64_t tmp5; convert_impl<uint8_t,  uint64_t>(*reinterpret_cast<const uint8_t*>( &_raw_data [0]), tmp5  ); target = tmp5;break;
+  case UINT8:   uint8_t tmp5; convert_impl<uint8_t,  uint8_t>(*reinterpret_cast<const uint8_t*>( &_raw_data [0]), tmp5  ); target = tmp5;break;
 
-  case UINT16:  uint64_t tmp6; convert_impl<uint16_t, uint64_t>(*reinterpret_cast<const uint16_t*>( &_raw_data [0]), tmp6  ); target = tmp6;break;
-  case UINT32:  uint64_t tmp7; convert_impl<uint32_t, uint64_t>(*reinterpret_cast<const uint32_t*>( &_raw_data [0]), tmp7  ); target = tmp7;break;
+  case UINT16:  uint16_t tmp6; convert_impl<uint16_t, uint16_t>(*reinterpret_cast<const uint16_t*>( &_raw_data [0]), tmp6  ); target = tmp6;break;
+  case UINT32:  uint32_t tmp7; convert_impl<uint32_t, uint32_t>(*reinterpret_cast<const uint32_t*>( &_raw_data [0]), tmp7  ); target = tmp7;break;
   case UINT64:  uint64_t tmp8; convert_impl<uint64_t, uint64_t>(*reinterpret_cast<const uint64_t*>( &_raw_data [0]), tmp8  ); target = tmp8;break;
 
-  case FLOAT32:  double tmp9; convert_impl<float, double>(*reinterpret_cast<const float*>( &_raw_data [0]), tmp9  ); target = tmp9;break;
+  case FLOAT32:  float tmp9; convert_impl<float, float>(*reinterpret_cast<const float*>( &_raw_data [0]), tmp9  ); target = tmp9;break;
   case FLOAT64:  double tmp10; convert_impl<double, double>(*reinterpret_cast<const double*>( &_raw_data [0]), tmp10  ); target = tmp10;break;
   
   case DURATION: target = extract<ros::Duration>().toSec(); break;

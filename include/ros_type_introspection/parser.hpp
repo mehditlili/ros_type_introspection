@@ -102,11 +102,11 @@ public:
     return this->baseName() < other.baseName();
   }
 
-  Variant deserializeFromBuffer(uint8_t** buffer) const
+  Variant deserializeFromBuffer(uint8_t** buffer, bool move_buffer=true) const
   {
       if(!_deserialize_impl){ return Variant(); }
       else{
-          return _deserialize_impl(buffer);
+          return _deserialize_impl(buffer, move_buffer);
       }
   }
 
@@ -117,18 +117,25 @@ protected:
   SString _base_name;
   SString _msg_name;
   SString _pkg_name;
-  boost::function<Variant(uint8_t** buffer)> _deserialize_impl;
+  boost::function<Variant(uint8_t** buffer, bool move_buffer)> _deserialize_impl;
 
 };
 
 // helper function to deserialize raw memory
-template <typename T> inline T ReadFromBuffer( uint8_t** buffer)
+template <typename T> inline T ReadFromBuffer( uint8_t** buffer, bool move_buffer = true)
 {
   T destination =  (*( reinterpret_cast<T*>( *buffer ) ) );
-  *buffer +=  sizeof(T);
+  if (move_buffer)
+  {
+      std::cout << "adding to buffer " << sizeof(T) << std::endl;
+    *buffer +=  sizeof(T);
+  }
+  else
+  {
+    destination *= 0;
+  }
   return (destination);
 }
-
 
 /**
  * @brief A ROSMessage will contain one or more ROSField(s). Each field is little more
